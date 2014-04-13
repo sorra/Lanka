@@ -9,13 +9,6 @@ import org.eclipse.jdt.core.JavaCore
 import scala.reflect.ClassTag
 
 object Run extends App {
-  //TODO
-  def selector[T <: ASTNode: ClassTag](visitor: T => Boolean): Selector[T] = {
-    new Selector[T] {
-      override def visiting(node: T): Boolean = visitor(node)
-    }
-  }
-
   Walker.launch(Seq("."),
     {file => file.getPath().endsWith(".java") },
     {context =>
@@ -24,7 +17,7 @@ object Run extends App {
         md.setName(md.getAST().newSimpleName("hi"))
         true
       }
-      selector(sel).start(cu)
+      Selector(sel).start(cu)
       println(cu.toString)
       false
     })
