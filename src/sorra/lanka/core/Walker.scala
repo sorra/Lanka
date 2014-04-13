@@ -24,7 +24,7 @@ class Walker(roots: Seq[String], filter: File => Boolean, astFunction: AstContex
   def start() {
     for (each <- roots) {
       val root = Paths.get(each).toFile
-          println("root: " + root)
+      println("root: " + root)
       through(root)
     }
     
@@ -66,9 +66,7 @@ class Walker(roots: Seq[String], filter: File => Boolean, astFunction: AstContex
 
   private def through(in: File) {
     if (in.isDirectory) {
-      for (child <- in.listFiles) {
-        through(child)
-      }
+      in.listFiles.foreach(through _)
     } else if (filter(in)) {
       files add in
     }
