@@ -22,10 +22,9 @@ class Walker(roots: Seq[String], filter: File => Boolean, astFunction: AstContex
   }
 
   def start() {
-    for (each <- roots) {
-      val root = Paths.get(each).toFile
-      println("root: " + root)
-      through(root)
+    for (each <- roots.map(Paths.get(_).toFile)) {
+      println("root: " + each)
+      through(each)
     }
     
     val threads = {
