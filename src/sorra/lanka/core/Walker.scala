@@ -33,7 +33,7 @@ class Walker(roots: Seq[String], filter: File => Boolean, astFunction: AstContex
     }
     
     val executorService = Executors.newFixedThreadPool(threads)
-    for (i <- 1 to threads) yield {
+    for (i <- 1 to threads) {
       executorService.execute(() => {
         var stop = false
         while (!stop) {
