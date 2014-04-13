@@ -1,0 +1,3 @@
+class Cl {
+	void a() {}
+}
