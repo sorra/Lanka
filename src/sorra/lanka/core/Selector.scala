@@ -4,13 +4,11 @@ import org.eclipse.jdt.core.dom._
 import scala.reflect.ClassTag
 import scala.collection.mutable.ArrayBuffer
 
-abstract class Selector[T <: ASTNode : ClassTag] extends ASTVisitor {
+class Selector[T <: ASTNode : ClassTag](nodeVisit: T => Boolean) extends ASTVisitor {
 
       private val clazz = implicitly[ClassTag[T]].runtimeClass
       private var started = false
       private val hitNodes = ArrayBuffer[T]()
-      
-      def visiting(node: T) : Boolean
       
       def start(scope: ASTNode) = {
         started = true
@@ -29,7 +27,7 @@ abstract class Selector[T <: ASTNode : ClassTag] extends ASTVisitor {
       
       override def preVisit2(node: ASTNode): Boolean = {
         preVisit(node)
-        if (clazz.isInstance(node)) visiting(node.asInstanceOf[T])
+        if (clazz.isInstance(node)) nodeVisit(node.asInstanceOf[T])
         else true
       }
 }
@@ -40,8 +38,6 @@ object Selector {
    */
   //TODO
   def apply[T <: ASTNode: ClassTag](nodeVisit: T => Boolean): Selector[T] = {
-    new Selector[T] {
-      override def visiting(node: T): Boolean = nodeVisit(node)
-    }
+    new Selector[T](nodeVisit)
   }
 }
