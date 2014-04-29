@@ -3,7 +3,8 @@ package sorra.lanka.core
 import org.eclipse.jdt.core.dom.ASTVisitor
 import org.eclipse.jdt.core.dom.ASTNode
 
-class Visitor(nodeVisit: PartialFunction[ASTNode, Boolean]) extends ASTVisitor {
+class Visitor(yourNodeVisit: PartialFunction[ASTNode, Boolean]) extends ASTVisitor {
+  private val nodeVisit: PartialFunction[ASTNode, Boolean] = yourNodeVisit.orElse({case _ => true})
   
   def start(scope: ASTNode) = {
     scope.accept(this)
@@ -22,7 +23,7 @@ object Visitor {
    * Other node types are skipped.
    */
   def stoppable(yourNodeVisit: PartialFunction[ASTNode, Boolean]) = {
-    new Visitor(yourNodeVisit.orElse{case _ => true})
+    new Visitor(yourNodeVisit)
   }
   
   /**
@@ -30,7 +31,6 @@ object Visitor {
    * Other node types are skipped.
    */
   def through(yourNodeVisit: PartialFunction[ASTNode, Unit]) = {
-    val nodeVisit: PartialFunction[ASTNode, Unit] = yourNodeVisit.orElse{case _ =>}
-    new Visitor( nodeVisit.andThen{_=>true} )
+    new Visitor( yourNodeVisit.andThen{_=>true} )
   }
 }
