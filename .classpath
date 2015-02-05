@@ -14,5 +14,10 @@
 	<classpathentry kind="lib" path="lib/JDT-4.3.1/org.eclipse.jdt.core.source_3.9.1.v20130905-0837.jar"/>
 	<classpathentry kind="lib" path="lib/JDT-4.3.1/org.eclipse.osgi_3.9.1.v20130814-1242.jar"/>
 	<classpathentry kind="lib" path="lib/JDT-4.3.1/org.eclipse.text_3.5.300.v20130515-1451.jar"/>
+	<classpathentry kind="lib" path="lib/json/paranamer-2.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/json/lift-json_2.10-2.5.1.jar" sourcepath="D:/scala-work/lift-json_2.10-2.5.1-sources.jar"/>
+	<classpathentry kind="lib" path="lib/json/jackson-annotations-2.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/json/jackson-core-2.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/json/jackson-databind-2.4.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
